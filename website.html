@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft - The Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Navigation */
+        
+        nav {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #2dd36f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav h1 {
+            font-size: 28px;
+            color: #2dd36f;
+            text-shadow: 0 0 10px rgba(45, 211, 111, 0.5);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            color: #2dd36f;
+            text-shadow: 0 0 10px rgba(45, 211, 111, 0.7);
+        }
+        /* Hero Section */
+        
+        .hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f3d2d 100%);
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(45, 211, 111, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(45, 211, 111, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 72px;
+            color: #2dd36f;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(45, 211, 111, 0.6);
+            animation: glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%,
+            100% {
+                text-shadow: 0 0 20px rgba(45, 211, 111, 0.6);
+            }
+            50% {
+                text-shadow: 0 0 40px rgba(45, 211, 111, 1);
+            }
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #2dd36f;
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(45, 211, 111, 0.4);
+        }
+        
+        .cta-button:hover {
+            background: #1fb451;
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(45, 211, 111, 0.8);
+        }
+        /* Container */
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section h2 {
+            font-size: 42px;
+            color: #2dd36f;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(45, 211, 111, 0.4);
+            border-left: 5px solid #2dd36f;
+            padding-left: 20px;
+        }
+        
+        .section p {
+            font-size: 16px;
+            color: #c0c0c0;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        /* Features Grid */
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f3d2d 100%);
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #2dd36f;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(45, 211, 111, 0.3);
+            border-color: #1fb451;
+        }
+        
+        .feature-card h3 {
+            color: #2dd36f;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .feature-card p {
+            color: #a0a0a0;
+            margin-bottom: 0;
+        }
+        /* Game Modes Grid */
+        
+        .modes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .mode-card {
+            background: rgba(45, 211, 111, 0.05);
+            border: 2px solid rgba(45, 211, 111, 0.3);
+            padding: 25px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .mode-card:hover {
+            background: rgba(45, 211, 111, 0.15);
+            border-color: #2dd36f;
+            transform: scale(1.05);
+        }
+        
+        .mode-card h3 {
+            color: #2dd36f;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .mode-card p {
+            color: #909090;
+            font-size: 14px;
+        }
+        /* Blocks Grid */
+        
+        .blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        .block {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid rgba(45, 211, 111, 0.2);
+        }
+        
+        .block:hover {
+            transform: scale(1.1) rotate(5deg);
+            border-color: #2dd36f;
+            box-shadow: 0 0 15px rgba(45, 211, 111, 0.4);
+        }
+        
+        .dirt {
+            background: linear-gradient(135deg, #8b7355 0%, #5d4a35 100%);
+        }
+        
+        .stone {
+            background: linear-gradient(135deg, #808080 0%, #606060 100%);
+        }
+        
+        .grass {
+            background: linear-gradient(135deg, #228b22 0%, #1a6b1a 100%);
+        }
+        
+        .wood {
+            background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+        }
+        
+        .diamond {
+            background: linear-gradient(135deg, #00ced1 0%, #0088aa 100%);
+        }
+        
+        .gold {
+            background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+        }
+        
+        .iron {
+            background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+        }
+        
+        .lava {
+            background: linear-gradient(135deg, #ff4500 0%, #cc0000 100%);
+        }
+        /* Footer */
+        
+        footer {
+            background: rgba(0, 0, 0, 0.95);
+            color: #707070;
+            text-align: center;
+            padding: 40px;
+            border-top: 3px solid #2dd36f;
+            margin-top: 80px;
+        }
+        
+        footer p {
+            margin: 10px 0;
+        }
+        /* Responsive */
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+            .section h2 {
+                font-size: 32px;
+            }
+            nav ul {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <h1>⛏ MINECRAFT</h1>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#modes">Game Modes</a></li>
+            <li><a href="#blocks">Blocks</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>MINECRAFT</h1>
+            <p>"Build, Explore, Survive, and Thrive in an Infinite World"</p>
+            <a href="#" class="cta-button">Play Now</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- About Section -->
+        <section class="section" id="about">
+            <h2>📖 What is Minecraft?</h2>
+            <p>
+                Minecraft is a sandbox video game where players can build, explore, and survive in blocky, procedurally generated worlds. Originally created by Markus "Notch" Persson and now developed by Mojang Studios under Microsoft, Minecraft has become a cultural
+                phenomenon with over 300 million copies sold worldwide.
+            </p>
+            <p>
+                The game offers complete creative freedom, allowing players to construct elaborate structures, create intricate redstone contraptions, farm resources, and face challenges from various mobs. Whether you're a builder, explorer, engineer, or survivalist,
+                Minecraft provides endless possibilities for entertainment and creativity.
+            </p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section" id="features">
+            <h2>✨ Key Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🌍 Infinite Worlds</h3>
+                    <p>Create and explore boundless worlds with diverse biomes, terrain, and landscapes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🏗️ Creative Building</h3>
+                    <p>Unlimited resources and blocks to construct anything you can imagine.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚔️ Survival Mode</h3>
+                    <p>Face challenges, gather resources, and survive against dangerous mobs and nature.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎮 Multiplayer</h3>
+                    <p>Build and play together with friends on servers and realms.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🧩 Redstone Technology</h3>
+                    <p>Create complex machines and automation using redstone circuitry.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Customization</h3>
+                    <p>Use mods, resource packs, and skins to personalize your experience.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Modes Section -->
+        <section class="section" id="modes">
+            <h2>🎯 Game Modes</h2>
+            <div class="modes">
+                <div class="mode-card">
+                    <h3>Survival Mode</h3>
+                    <p>Gather resources, manage health, and survive against mobs in a challenging environment.</p>
+                </div>
+                <div class="mode-card">
+                    <h3>Creative Mode</h3>
+                    <p>Unlimited resources and no mobs. Build however you want without limitations.</p>
+                </div>
+                <div class="mode-card">
+                    <h3>Adventure Mode</h3>
+                    <p>Play custom maps and experiences created by other players.</p>
+                </div>
+                <div class="mode-card">
+                    <h3>Hardcore Mode</h3>
+                    <p>One life only! Permadeath makes survival more challenging and thrilling.</p>
+                </div>
+                <div class="mode-card">
+                    <h3>Spectator Mode</h3>
+                    <p>Fly around and observe the world without interacting with anything.</p>
+                </div>
+                <div class="mode-card">
+                    <h3>Multiplayer</h3>
+                    <p>Play with friends on servers, realms, and local networks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blocks Section -->
+        <section class="section" id="blocks">
+            <h2>🧱 Popular Blocks</h2>
+            <div class="blocks">
+                <div class="block dirt">Dirt</div>
+                <div class="block stone">Stone</div>
+                <div class="block grass">Grass</div>
+                <div class="block wood">Wood</div>
+                <div class="block diamond">Diamond</div>
+                <div class="block gold">Gold</div>
+                <div class="block iron">Iron</div>
+                <div class="block lava">Lava</div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section class="section">
+            <h2>👥 A Thriving Community</h2>
+            <p>
+                Minecraft boasts one of the largest and most creative gaming communities in the world. Players share mods, maps, skins, and incredible creations through platforms like YouTube, Twitch, and Reddit. From massive survival servers to jaw-dropping creative
+                builds, the community continues to push the boundaries of what's possible in Minecraft.
+            </p>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Minecraft Information Website | Made with ❤️ by Minecraft Enthusiasts</p>
+        <p>Official Website: <strong>www.minecraft.net</strong></p>
+    </footer>
+</body>
+
+</html>
